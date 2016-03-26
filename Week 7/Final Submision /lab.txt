@@ -1,0 +1,120 @@
+Michael Wang
+CS35L 
+Assignment 7
+
+
+- To run tr2b: gcc tr2b.c -g -o tr2b
+
+- To check if different lengths:
+cat sample.txt | ./tr2b "123" "12345"
+
+
+- To check for duplicates
+cat sample.txt | ./tr2b "Michael" "Wang"
+
+
+- Ran tr2u.c: gcc tr2u.c -g -o tr2u
+
+- To check different lengths:
+cat sample2.txt | ./tr2u "123" "12345"
+
+- To check for duplicates:
+cat sample2.txt | ./tr2u "Michael "Wang"
+
+The main difference between tr2b.c and tr2u.c is that tr2b.c uses getchar and putchar, while tr2u.c uses read and write. 
+
+-Creating file with 50000000 bytes
+dd if=/dev/zero of=file.txt count=2500 bs=2500
+
+- tr2b command
+
+ a)copy one file to another
+    strace -o strace1 -c cat file.txt | ./tr2b 'a' 'b' >file1
+  % time     seconds  usecs/call     calls    errors syscall
+  ------ ----------- ----------- --------- --------- ----------------
+   98.25     0.019800         305         15           write
+    1.75    0.000494           8       17           read
+    0.00    0.000000           0         4           open
+    0.00    0.000000           0         6           close
+    0.00    0.000000           0         5           fstat
+    0.00    0.000000           0         6           mmap
+    0.00    0.000000           0         2           mprotect
+    0.00    0.000000           0         1           munmap
+    0.00    0.000000           0         1           brk
+    0.00    0.000000           0         1          access
+    0.00    0.000000           0         1           execve
+    0.00    0.000000           0         1           arch_prctl
+    0.00    0.000000           0         1           fadvise64
+  ------ ----------- ----------- --------- --------- ----------------
+  100.00    0.022294                   61         1 total
+
+    strace -o strace2 -c cat file.txt | ./tr2u 'a' 'b' >file2
+    % time     seconds  usecs/call     calls    errors syscall
+  ------ ----------- ----------- --------- --------- ----------------
+   98.75    0.061012        1103         15          write
+    1.25    0.000095           5        17           read
+    0.00    0.000000           0         4           open
+    0.00    0.000000           0         6          close
+    0.00    0.000000           0         5           fstat
+    0.00    0.000000           0         6           mmap
+    0.00    0.000000           0         2           mprotect
+    0.00    0.000000           0         1           munmap
+    0.00    0.000000           0         1           brk
+    0.00    0.000000           0         1          access
+    0.00    0.000000           0           1           execve
+    0.00    0.000000           0         1           arch_prctl
+    0.00    0.000000           0         1           fadvise64
+  ------ ----------- ----------- --------- --------- ----------------
+  100.00    0.061107                   61         1 total
+
+   b)copy file to terminal
+    strace -o strace3 -c cat file.txt | ./tr2b 'a' 'b'
+    % time     seconds  usecs/call     calls    errors syscall
+  ------ ----------- ----------- --------- --------- ----------------
+   99.28    0.012310          302        15           write
+    0.72    0.000099           3        17           read
+    0.00    0.000000           0         4           open
+    0.00    0.000000           0         6           close
+    0.00    0.000000           0         5           fstat
+    0.00    0.000000           0         6           mmap
+    0.00    0.000000           0         2           mprotect
+    0.00    0.000000           0         1           munmap
+    0.00    0.000000           0         1           brk
+    0.00    0.000000           0         1         1 access
+    0.00    0.000000           0         1           execve
+    0.00    0.000000           0         1           arch_prctl
+    0.00    0.000000           0         1           fadvise64
+  ------ ----------- ----------- -------- --------- ----------------
+  100.00    0.012409                   61         1 total 
+   
+  strace -o strace4 -c cat file.txt | ./tr2u 'a' 'b'
+  % time     seconds  usecs/call     calls    errors syscall
+  ------ ----------- ----------- --------- --------- ----------------
+  98.89     0.056020         776        15           write
+    1.11    0.000329           11        17           read
+    0.00    0.000000           0         4           open
+    0.00    0.000000           0         6           close
+    0.00    0.000000           0         5           fstat
+    0.00    0.000000           0         6           mmap
+    0.00    0.000000           0         2           mprotect
+    0.00    0.000000           0         1           munmap
+    0.00    0.000000           0         1           brk
+    0.00    0.000000           0         1         1 access
+    0.00    0.000000           0         1           execve
+    0.00    0.000000           0         1           arch_prctl
+    0.00    0.000000           0         1           fadvise64
+  ------ ----------- ----------- --------- --------- ----------------
+  100.00    0.056349                    61         1 total
+
+
+It becomes quite clear that tr2u takes more calls and more time in general as compared to tr2b
+4.
+time ./tr2b 'ab' 'xy' < output.txt
+real   0m1.068s
+user   0m0.449s
+sys    0m0.120s
+
+time ./tr2u 'ab' 'xy' < output.txt
+real   0m8.712s
+user   0m0.867s
+sys    0m5.928s

@@ -1,0 +1,54 @@
+Michael Wang
+Assignment 6 Lab
+
+Instal Ubantu onto Viritual Machine
+
+To install SSH, I ran the following commands in Open SSH:
+	sudo apt-get update
+	sudo apt-get install openssh-server
+	sudo apt-get install openssh-client
+
+As the server:
+
+To make the public and private keys:
+	ssh-keygen
+
+Create an account for the client:
+	sudo useradd -d /home/newuser -m new user
+	sudo passwd newuser
+	password=password
+
+Create .ssh directory for the partner
+	cd/home/newuser
+	sudo mkdir .ssh
+
+To change ownership and permission on .ssh directory
+	sudo chown -R newuser .ssh
+	sudo chmod 700 .ssh
+
+Use ifconfig to check the server IP address
+
+To see if server is working properly:
+	ps aux | grep ssh
+
+Partner can now ssh my server.
+
+Ass the client:
+
+To make the public and and private keys
+	ssh-keygen
+
+To copy the public key to the server for my key-based authentication
+	ssh-copy-id -i <userName>@<serverIPAddress>
+
+To add the private key to authentication agent:
+	ssh-add 
+	password
+
+SSH to the server:
+	ssh <username>@<serverIPAddress>
+
+To try out the x-session forwarding: 
+	ssh -X <userName>@<serverIPAddress>
+The GUI is successfully shown! 
+

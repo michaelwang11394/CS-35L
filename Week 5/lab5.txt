@@ -1,0 +1,62 @@
+Michael Wang
+Lab5.txt
+
+Downloaded bugged version of coreutils
+
+To build the old version: 
+./configure CFLAGS='-g3 -O0’
+make 
+
+This file fails for multiple reasons, as expected
+
+To get the patch:
+wget http://web.cs.ucla.edu/classes/winter16/cs35L/assign/coreutils.diff
+
+To apply the patch:
+patch -p0 < coreutils.diff
+
+./configure
+make
+
+Everything works now. The patch changed unknown futimens to coreutils_futimens; this way there is no more confusion on what futimens we're asking for. 
+
+To reproduce the problem: 
+$ tmp=$(mktemp -d)
+$ cd $tmp
+$ touch -d '1918-11-11 11:00 GMT' wwi-armistice
+$ touch now
+$ sleep 1
+$ touch now1
+$ TZ=UTCO /u/eng/class/classsbk/coreutils-with-bug/src/ls -lt --full-time
+$ wwi-armistice now now1
+
+The result returns statements that implies that armistice is future program: 
+-rw-r--r-- 1 classsbk class 0 1918-11-11 11:00:00.000000000 +0000 wwi-armistice
+-rw-r--r-- 1 classsbk class 0 2016-02-06 19:59:09.687220878 +0000 now1
+-rw-r--r-- 1 classsbk class 0 2016-02-06 19:58:56.046010262 +0000 now
+
+To begin actually debugging the file: 
+I first looked into ls.c because our issues stem from faulty time and or sorting. After I emaced into the file, I found a function called sort_files. I then gdbed into it to further analyze it. 
+
+cd coreutils-with-bug
+cd src
+
+emacs ls.c
+gdb --args ./ls -lt wwi-armistice now now1
+break compare_mtime
+start
+c
+
+list compare_mtime
+list cmp_mtime
+list timespec_cmp
+
+compare_mtime called cmp_mtime which called timespec_cmp
+
+After further examining timespec, I notcied that it returns negative if A < B, - if A ==B, and positive if A > B. Most importantly, this information is stroed as a int. This is important because the limitations of the int lead to overflow. In armistice, this is relevant because m_time is negative; in the now file it is positive, and thus diff also becomes negative. This is obviously not correct since subtracting a negative number from a positive number should in most cases return a positive number. 
+
+In order to fix this overflow problem, I changed the into to a long. I also changed timespec.h so that timespec_cmp can use long too. After testing this change, we successfully returned a logical time. 
+
+I made lab5.diff file using this information and added a changelog. 
+
+I also ran it inside seasnet. The year is retuned as 2054 which is because timestamps are calculated from January 1st, 1970. Everything before that is a negative and a large positive number under an unsigned number system. 

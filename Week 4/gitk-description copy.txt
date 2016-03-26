@@ -1,0 +1,10 @@
+Michael Wang
+gitk-description.txt
+
+Observatioons are as follows:
+-Top panal is history of different commits 
+-Separated by branches
+-From left to right, left panal is branching, authors emails and author, and dates of the commits
+-Below this are more details on a commit that we wish to see more. 
+-Below that are diff files
+-Right panal displays files that were changed. 

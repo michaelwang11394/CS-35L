@@ -1,0 +1,11 @@
+#!/bin/bash
+sed 's/<[^>]*>//g' | \
+tr '[:upper:]' '[:lower:]' | \
+sed '/<!doctype/,/adopt/d' | \
+sed '/<\/table>/,/<\/html>/d' | \
+sed '/<td><br>/,/<td><\/td>/d' | \
+sed 's/, /\n/g' | \
+sed 's/ /\n/g' | \
+sed 's/`/\x27/g' | \
+grep "^[pk'mnwlhaeiou]*$" | \
+sort -u

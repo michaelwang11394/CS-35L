@@ -1,0 +1,21 @@
+Michael Wang
+CS35L Assignment 3
+
+1) wget http://ftp.gnu.org/gnu/coreutils/coreutils-7.6.tar.gz
+2) tar -xzvf coreutils-7.6.tar.gz
+3) cd coreutils-7.6
+4) mkdir coreutilsInstall
+5) cat INSTALL
+6) pwd
+7)./configure --prefix=/u/eng/class/classsbk/coreutilsInstall/coreutils-7.6
+8) make
+9) make install
+10) cd bin 
+11) -ls -l which outputs the wrong date
+12) cd ~/u/eng/class/classsbk/coreutilsInstall/coreutils-7.6
+13) emacs patch_file
+14) Copy and paste the patch: patch = p1 < patch_file
+15) make 
+16) cd bin 
+./ls -l
+Everything is fixed 

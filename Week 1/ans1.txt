@@ -1,0 +1,144 @@
+1)How can you get man to print all the commands that have a specific word in their man page (or at least the description part of the man page)? (hint: man man)
+
+man man
+man -k <word>
+
+2)Where are the cp and wc programs located in the file system?
+
+whereis cp:/usr/bin/cp /usr/local/cs/bin/cp /usr/share/man/man1p/cp.1p.gz /usr/share/man/man1/cp.1.gz
+whereis wc:/usr/bin/wc /usr/local/cs/bin/wc /usr/share/man/man1p/wc.1p.gz /usr/share/man/man1/wc.1.gz
+
+3)
+
+w: shows who is logged on and what they are doing
+X: a portable network-transparent window system
+[: check file types and compare values
+  
+ cd usr/bin
+   ls 
+   Scroll to find 1 character executables 
+   whatis [
+   whatis w
+   whatis Xqqc
+
+4) When you execute the command named by the symbolic link /usr/bin/emacs, which file actually is executed?
+
+gcc
+
+cd /usr/bin
+   find cc
+   readlink cc
+
+5)The chmod program changes permissions on a file. What does the symbolic mode g+s,o-x mean, in terms of permissions?
+
+
+You can set or clear bits with symbolic modes and you can set bits with numeric mode, so essentially you're taking away permissions of a file.
+
+man chmod
+   /g-s
+
+6)What option to find lets you search for files that have been modified in the last three weeks?
+
+find -mtime -21
+
+man find
+   scroll and read
+   find -mtime -21
+
+7) Use the previous answer to find all directories modified in the last three weeks.
+/
+/lib
+/usr
+/usr/src/kernels
+/usr/src/kernels/3.10.0-327.3.1.el7.x86_64
+/usr/src/kernels/3.10.0-327.3.1.el7.x86_64/scripts
+/usr/src/kernels/3.10.0-327.3.1.el7.x86_64/scripts/coccinelle
+/usr/src/kernels/3.10.0-327.3.1.el7.x86_64/scripts/coccinelle/tests
+/usr/src/kernels/3.10.0-327.3.1.el7.x86_64/scripts/coccinelle/null
+/usr/src/kernels/3.10.0-327.3.1.el7.x86_64/scripts/coccinelle/locks
+/usr/src/kernels/3.10.0-327.3.1.el7.x86_64/scripts/coccinelle/api
+/usr/src/kernels/3.10.0-327.3.1.el7.x86_64/scripts/coccinelle/api/alloc
+/usr/src/kernels/3.10.0-327.3.1.el7.x86_64/scripts/coccinelle/iterators
+/usr/src/kernels/3.10.0-327.3.1.el7.x86_64/scripts/coccinelle/free
+/usr/src/kernels/3.10.0-327.3.1.el7.x86_64/scripts/coccinelle/misc
+/usr/src/kernels/3.10.0-327.3.1.el7.x86_64/scripts/kconfig
+/usr/src/kernels/3.10.0-327.3.1.el7.x86_64/scripts/kconfig/lxdialog
+etc.... really long list
+
+find / -mtime -21
+
+8)Of the files in the same directory as find, how many of them are symbolic links?
+
+287
+
+   whereis find
+   cd /bin
+   find -type l
+   find -type l | wc -l
+
+9)What is the oldest regular file in the /usr/lib directory?
+
+drwxr-xr-x.  6 root root    4096 Sep 29  2014 kbd
+
+cd /usr/lib
+   man lsq
+   ls -l -a -t -rq  q
+10) Where does the locale command get its data from?
+
+		When  locale  is  invoked without any arguments, it shall summarize the
+       current locale environment for each locale category  as  determined  by
+       the  settings  of the environment variables defined in the Base Defini‐
+       tions volume of IEEE Std 1003.1-2001, Chapter 7, Locale.
+
+       When invoked with operands,  it  shall  write  values  that  have  been
+       assigned to the keywords in the locale categories, as follows:
+
+        * Specifying  a  keyword  name  shall select the named keyword and the
+          category containing that keyword.
+
+        * Specifying a category name shall select the named category  and  all
+          keywords in that category.
+
+man locale
+
+11)In Emacs, what commands have sort in their name?
+
+Buffer-menu-sort
+sort-columns
+sort-fields
+sort-lines
+sort-numeric-fields
+sort-pages
+sort-paragraphs
+sort-regexp-fields
+tabulated-list-col-sort
+
+emacs test
+    M-x command-apropos <enter> sort <enter>
+
+
+12)Briefly, what do the Emacs keystrokes C-M-a through C-M-h do? Can you list their actions concisely?
+
+C-M-a
+C-M-h
+
+C-M-a: Move to beginning of current or preceding defun (beginning-of-defun).
+C-M-h: Put region around whole current or following defun (mark-defun).
+
+13)In more detail, what does the Emacs keystroke C-g do?
+
+You can use C-g to quit any action that you may have started. 
+
+C-g
+
+14)What does the Emacs yank function do?
+
+Yanking is inserting text that was previously deleted 
+
+C-y
+
+15)When looking at the directory /usr/bin, what's the difference between the output of the ls -l command, and the directory listing of the Emacs dired command?
+
+You can use dire to open up the files, while -l just lets you view them
+
+C-x d

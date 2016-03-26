@@ -1,0 +1,63 @@
+I1.1)
+2) C-s UTF-8
+3) C-s Instructions
+4) C-s HTML
+5) C-s Arrow
+6) C-e
+7) C-a
+8): 1 <ENTER>
+9)/ U T F - 8 <ENTER> I n s t r u c t i o n s <ENTER> / H T M L <ENTER> a r r o w
+<ENTER> e <ENTER> a <ENTER> : 1 <ENTER>
+10)same as 9)
+11) C-x C-c
+
+1.2
+1) M-x goto-line <Enter> 18 C-k
+2) C-s DELETEME <Enter> C-a C-k
+3) C-s wikipedia C-k
+4) C-s HTML C-k
+
+1.3
+1) M-% Assignment 1 <Enter> Assignment 37 <Enter> SP SP Esc
+2) M-x goto-line Enter 1 Enter M-% UTF-8 Enter US-ASCII Enter SP Esc
+3) M-g g 1 Enter C-s <ol> Enter C-o
+
+1.4
+1)M-> C-p C-p C-p C-p C-p C-f C-k C-r should Enter C-a C-k C-y M-y
+5)M-> C-SP C-R --- Enter C-w
+6)C-g C-_
+7)<!-- M-> -->
+8)There were 6 occurences. M-x replace-string <Enter> <ol> <Enter> <Ol> Enter
+
+1.5
+1) mkdir junk <Enter>
+2) touch hello.c <Enter>
+   C-x b hello.c C-x C-w
+3) M-x compile <enter>
+4) M-x compile Enter ./hello Enter C-x b *compilation* C-x C-w hello-out Enter
+5) -*- mode: compilation; default-directory: "~/junk/" -*-
+   Compilation started at Sat Jan  9 22:48:31
+
+1.6
+1) C-x b
+2) (random 17) C-j
+3) (setq x (random 10)) C-j
+   (setq y (random 10)) C-j
+   (setq z (random 10)) C-J
+
+   which prints out 7,7,5 respectivelly 
+4) (* x y z )
+
+	which prints out 245, the right answer. I repeated step 3 and 4 again and got another correct computation. This time using:
+   (setq x (random 100)) C-j
+   (setq y (random 100)) C-j
+   (setq z (random 100)) C-J
+   which printed out 80 13 42 respectivelly. 
+   (* x y z) 
+   43680
+ 5) M-: (eval-expression)
+ 	Also printed out 43680. Although if I had gotten different random numbers, M-: would print out more values. 
+
+6) Since  C-j will execute commands in my emacs window, I would have to delete the last value in my window to receive a new value.
+
+

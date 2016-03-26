@@ -1,0 +1,4 @@
+1) The patch was removed because it did nothing for the program. It doesn't matter whether the line is removed or not because the goto simply falls through.
+2) I would watch out to make sure that the locale is not specificed since Brady's patch removes the specification. If we were to use locales with different languages, it would become troublesome. 
+3) When a list attempts to index a list with no content, we get the error IndexError: list index out of range'. We cannot return a sequence of lines when there are no lines to be returned. 
+4) There is no tuple unpacking in python3. In python2, exceptions are repeatable, whereas in python 3 it is not. 

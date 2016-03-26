@@ -1,0 +1,39 @@
+Michael Wang
+
+       mkdir gitroot
+       cd gitroot
+       git clone ~eggert/src/gnu/diffutils
+
+
+       cd diffutils
+       git log > git-log.txt
+ 
+       git tag > git-tag.txt
+ 
+       emacs git-log.txt
+       C-s
+       git show 62ca21c8c1a5aa3488589dcb191a4ef04ae9ed4f > quote-patch.txt
+ 
+       cat git-tag.txt 
+       git checkout v3.0
+ 
+      git apply quote-patch.txt
+    
+		git status to see how everything panned out after patch
+
+		git checkout to remove the non c files
+
+		git clean -f to remove all unnecessary untracked files
+
+		To build diffultis: 
+		git submodule foreach git pull origin master
+		git commit -m 'build: update gnulib submodule'
+		./bootstrap
+	    ./configure
+	    make
+	    make check
+
+	    Comparing before and after: 
+	     diff quote-3.0-test.txt quote-3.0-patch.txt
+	     Files are different yay!
+

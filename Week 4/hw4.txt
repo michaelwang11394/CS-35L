@@ -1,0 +1,47 @@
+Michael Wang 
+CS 35L Homework 4
+
+2. 
+- create and switch to new branch off of quote
+git checkout v3.0
+- go to v3.0 on the new branch
+
+3. patch -p1 < quote-3.0-patch.txt
+-patch command 
+
+4-5. emacs ChangeLog-2008
+- C-x 4-a to add entries to the change log
+- examine 3.0 patch txt file to see changes
+
+Files that need change are all in src: cmp.c, diff.c,diff3.c, dir.c, sdiff.c, util.c
+
+6. git add .
+git commit --file=ChangeLog
+git commit --amend --author='Michael Wang <michaelwang888@ucla.edu>'
+
+
+7. git log 
+- to make sure that the log worked
+git format-patch -1 --stdout > formatted-patch.txt
+
+8. git checkout -b partner v3.0
+git am formatted-patch.txt
+
+*NOTE*:
+******I had to diff and run a file with someone who previously took the class due to the fact that I was not assigned a partner and I was running out of time to find one. No one was responding to my requests. My fault for starting the project late, but I figured that everyone's patch should be the same. *****
+
+./bootstrap
+./configure
+make
+make check
+
+9. make distdir
+
+10. open lnxsrv on Remote Desktop
+cd ~eggert/src/gnu/emacs
+ 
+export PATH=/usr/local/cs/bin:$PATH
+
+gitk
+
+We see that Vincent Belaiche last editted his file correctly with name and email on 1/29/2016 at 3:22PM

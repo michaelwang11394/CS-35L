@@ -1,0 +1,45 @@
+1. sfrob and sfrobu speed differences
+   sfrobu:
+   Lab 5 
+	   	real  0m0.004s
+   		user  0m0.001s
+   		sys   0m0.002s
+
+	Test file
+	
+	        real 0m8.759s
+	        user 0m2.690s
+	        sys  0m6.384s
+   sfrob:
+   Lab 5
+	        real  0m0.003s
+   	        user  0m0.002s
+   	        sys   0m0.002s
+
+	Test File
+	       real   0m7.389s
+	       user   0m1.605s
+	       sys    0m0.521s
+
+In conclusion, sfrob performs much faster than sfrobu because of file sizes. Thus it's better not to use system calls.
+
+   
+2. Comparing number of lines in the files
+   
+   	    #input lines:	  #comparisons:
+	    50			  768
+	    100			  2398
+	    200			  5001
+	    300			  7906
+	    
+
+3. Comparison of overal tests:
+	-Lab 5
+   	     real    0m0.006s
+   	     user    0m0.002s
+   	     sys     0m0.004s
+	     
+	-Test file
+	     real   0m7.312s
+	     user   0m1.230s
+	     sys    0m0.987s

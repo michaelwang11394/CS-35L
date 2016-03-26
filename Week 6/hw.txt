@@ -1,0 +1,12 @@
+Michael Wang
+Assignment 6 hw.txt
+
+1) If other teams had been observing the data traveling accross the network, our data would still be secure because it's encrypted. The other team would need a privaate key to access the information. 
+
+If our keyboard were tapped, it would no longer be secure because the other team could track our key strokes. The encryption process only occurs over network connections, and that encryption becomes obsolete if they know exactly what we're typing on our end. 
+
+If the other team had physical control of USB Key, our information would no longer be secure. They would have access to the private key and decrypt messages. 
+
+2) The GPG --verify instruction does verify the file because it only compares public key signatures. Anyone with the command can pose as someone else when signing files. 
+
+A solution would be to have a 3rd party manage all keys. All senders would use public keys made for the 3rd party to encrpyt.

@@ -1,0 +1,81 @@
+Michael Wang
+
+TR COMMAND:
+export LC_ALL='C'
+
+cp /usr/share/dict/words words
+sort words
+
+wget http://web.cs.ucla.edu/classes/winter16/cs35L/assign/assign2.html
+
+tr -c 'A-Za-z' '[\n*]' < assign2.html
+Replaces every letter with a new line character
+
+tr -cs 'A-Za-z' '[\n*]' < assign2.html
+Replaces every letter with a new line character without repeating new line characters
+
+tr -cs 'A-Za-z' '[\n*]' < assign2.html | sort 
+Replaces ever letter with a new line character without repeating new line characters, then prints out in sorted order.
+
+tr -cs 'A-Za-z' '[\n*]' < assign2.html | sort -u 
+Replaces ever letter with a new line character without repeating new line characters, then prints out in sorted order without repeats
+
+tr -cs 'A-Za-z' '[\n*]' < assign2.html | sort -u | comm - words 
+Replaces ever letter with a new line character without repeating new line characters, then prints out in sorted order without repeats. It then compares the list of words in the HTML with the list of words from the words file. The list that it returns contains words from assign2.html, words from the words file, and words that are in both files. 
+
+tr -cs 'A-Za-z' '[\n*]' < assign2.html | sort -u | comm -23 - words
+Everything above except only returns words in the html file
+
+
+tr -cs 'A-Za-z' '[\n*]' | sort -u | comm -23 -words
+does everything listed above, except only lists the first column (words
+unique to the input file, a.k.a words not in the dictionary)
+
+BUILD WORDS SCRIPT: 
+
+wget http://mauimapp.com/moolelo/hwnwdseng.htm to get dictionary
+
+I ran the below script, each time only adding 1 line just to make sure every line works. () marks explanation of line.
+
+#!/bin/bash
+(let the system know where we want to work)
+sed 's/<[^>]*>//g' | \
+(Remove the HTML tag)
+tr '[:upper:]' '[:lower:]' | \
+(We need to make everything into a lower case)
+sed '/<!doctype/,/adopt/d' | \
+(Remove the large chunks of extra spaces at the beginning of the file)
+sed '/<\/table>/,/<\/html>/d' | \
+(Remove large chunks of extra spaces at the end of the file)
+sed '/<td><br>/,/<td><\/td>/d' < temp > temp2
+(Remove empty spaces)
+sed 's/, /\n/g' | \
+(Make new line when there's a comma)
+sed 's/ /\n/g' | \
+(Make new line when there's a space)q
+sed 's/`/\x27/g' | \
+(Replace grave accent mark with apostrophe)
+grep "^[pk'mnwlhaeiou]*$" | \
+(Remove the characters that aren't hawaiian)
+sort -u
+(Sort the result)
+
+Create a file to save the mispelled words:
+tr -cs 'A-Za-z' '[\n*]' < assign2.html | sort -u | comm -23 - words > english.txt
+
+205 misspelled English words:	
+tr -cs 'A-Za-z' '[\n*]' < assign2.html | sort -u | comm -23 - words | wc -l
+
+Create a file to save the mispelled words:
+tr -cs 'A-Za-z' '[\n*]' < assign2.html | sort -u | comm -23 - hwords > hawaiian.txt
+
+451 misspelled Hawaiian words:
+tr -cs 'A-Za-z' '[\n*]' < assign2.html | sort -u | comm -23 - hwords | wc -l
+
+To find words misspelled as English but not Hawaiian:
+comm -23 english.txt hawaiian.txt
+There are 4 words including: a, i, kula, lau, 
+
+To find words misspelled as Hawaiian but not English:
+comm -23 hawaiian.txt english.txt
+By using wc -l, we find that there are 205 words, including: there, error, ignore etc
